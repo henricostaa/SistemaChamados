@@ -20,8 +20,6 @@ namespace SistemaChamados
         public MainWindow()
         {
             InitializeComponent();
-            var login = new LoginView();
-            login.Show();
 
         }
     }
