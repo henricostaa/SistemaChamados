@@ -9,4 +9,3 @@
         public string Tipo { get; set; } // Admin, Técnico, Usuário
     }
 }
-ifdshiufdhsi
