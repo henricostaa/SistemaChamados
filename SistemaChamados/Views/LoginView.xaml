@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:SistemaChamados.Views"
         mc:Ignorable="d"
         Title="LoginView" Height="450" Width="800">
+    
+    
     <Grid Margin="20">
         <StackPanel>
             <TextBox Text="{Binding Usuario}" Margin="0,0,0,10" />
-            <PasswordBox x:Name="SenhaBox" Margin="0,0,0,10" />
+            <PasswordBox x:Name="SenhaBox" PasswordChanged="SenhaBox_PasswordChanged" Margin="0,0,0,10" />
             <Button Content="Entrar" Command="{Binding EntrarCommand}" />
         </StackPanel>
     </Grid>

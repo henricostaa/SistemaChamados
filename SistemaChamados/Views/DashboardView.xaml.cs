@@ -11,28 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SistemaChamadosWPF.ViewModels;
 
 namespace SistemaChamados.Views
 {
     /// <summary>
-    /// Lógica interna para LoginView.xaml
+    /// Lógica interna para DashboardView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class DashboardView : Window
     {
-        public LoginView()
+        public DashboardView()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
-        }
-
-        private void SenhaBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is LoginViewModel vm)
-            {
-                vm.Senha = SenhaBox.Password;
-            }
         }
     }
-
 }
