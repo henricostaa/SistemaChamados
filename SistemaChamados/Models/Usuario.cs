@@ -1,4 +1,4 @@
-﻿namespace SistemaChamadosWPF.Models
+﻿namespace SistemaChamados.Models
 {
     public class Usuario
     {

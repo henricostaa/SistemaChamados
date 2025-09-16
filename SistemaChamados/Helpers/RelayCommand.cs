@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace SistemaChamadosWPF.Helpers
+namespace SistemaChamados.Helpers
 {
     public class RelayCommand : ICommand
     {

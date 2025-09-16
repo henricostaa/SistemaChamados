@@ -1,8 +1,9 @@
-﻿using SistemaChamadosWPF.Helpers;
+﻿using SistemaChamados.Helpers;
 using System.Windows.Input;
 using System.Windows;
+using SistemaChamados.Views;
 
-namespace SistemaChamadosWPF.ViewModels
+namespace SistemaChamados.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
@@ -25,14 +26,30 @@ namespace SistemaChamadosWPF.ViewModels
         public LoginViewModel()
         {
             EntrarCommand = new RelayCommand(ExecutarLogin);
+            
         }
 
         private void ExecutarLogin(object parametro)
         {
             if (Usuario == "admin" && Senha == "123")
-                MessageBox.Show("Login bem-sucedido!");
+            {
+                var dashboard = new DashboardView();
+                dashboard.Show();
+
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window is LoginView)
+                    {
+                        window.Close();
+                        break;
+                    }
+                }
+            }
             else
+            {
                 MessageBox.Show("Usuário ou senha inválidos.");
+            }
+                
         }
     }
 }

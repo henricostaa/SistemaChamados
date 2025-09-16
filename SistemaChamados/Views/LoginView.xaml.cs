@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SistemaChamadosWPF.ViewModels;
+using SistemaChamados.ViewModels;
 
 namespace SistemaChamados.Views
 {

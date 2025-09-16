@@ -1,4 +1,4 @@
-﻿namespace SistemaChamadosWPF.Services
+﻿namespace SistemaChamados.Services
 {
     public static class IAService
     {
