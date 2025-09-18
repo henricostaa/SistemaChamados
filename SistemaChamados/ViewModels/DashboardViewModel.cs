@@ -1,6 +1,7 @@
 ﻿using SistemaChamados.Helpers;
 using System.Windows.Input;
 using System.Windows;
+using SistemaChamados.Views;
 
 namespace SistemaChamados.ViewModels
 {
@@ -19,12 +20,14 @@ namespace SistemaChamados.ViewModels
 
         private void AbrirChamado(object obj)
         {
-            MessageBox.Show("Tela de Abrir Chamado ainda não implementada.");
+            var abrirChamado = new AbrirChamadoView();
+            abrirChamado.Show();
         }
 
         private void ConsultarChamado(object obj)
         {
-            MessageBox.Show("Tela de consulta ainda não implementada.");
+            var consultaChamados = new ConsultaChamadosView();
+            consultaChamados.Show();
         }
 
         private void AbrirRelatorios(object obj)
