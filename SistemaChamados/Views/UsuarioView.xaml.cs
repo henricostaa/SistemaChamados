@@ -10,29 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SistemaChamados.ViewModels;
 
 namespace SistemaChamados.Views
 {
     /// <summary>
-    /// Lógica interna para LoginView.xaml
+    /// Interação lógica para UsuarioView.xam
     /// </summary>
-    public partial class LoginView : Window
+    public partial class UsuarioView : UserControl
     {
-        public LoginView()
+        public UsuarioView()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
-        }
-
-        private void SenhaBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is LoginViewModel vm)
-            {
-                vm.Senha = SenhaBox.Password;
-            }
         }
     }
-
 }

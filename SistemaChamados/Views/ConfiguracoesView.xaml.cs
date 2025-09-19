@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SistemaChamados.Views
 {
     /// <summary>
-    /// Lógica interna para ConsultaChamadosView.xaml
+    /// Interação lógica para ConfiguracoesView.xam
     /// </summary>
-    public partial class ConsultaChamadosView : Window
+    public partial class ConfiguracoesView : UserControl
     {
-        public ConsultaChamadosView()
+        public ConfiguracoesView()
         {
             InitializeComponent();
         }

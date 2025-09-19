@@ -12,7 +12,7 @@ namespace SistemaChamados
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var login = new LoginView();
+            var login = new LoginWindow();
             login.Show();
         }
 

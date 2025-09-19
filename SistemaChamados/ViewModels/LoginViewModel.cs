@@ -34,12 +34,12 @@ namespace SistemaChamados.ViewModels
             if (Usuario == "admin" && Senha == "123")
             {
                 Sessao.UsuarioLogado = Usuario;
-                var dashboard = new DashboardView();
-                dashboard.Show();
+                var home = new HomeView();
+                
 
                 foreach (Window window in Application.Current.Windows)
                 {
-                    if (window is LoginView)
+                    if (window is LoginWindow)
                     {
                         window.Close();
                         break;

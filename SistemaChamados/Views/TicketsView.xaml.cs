@@ -1,5 +1,4 @@
-﻿using SistemaChamados.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SistemaChamados.Views
 {
     /// <summary>
-    /// Lógica interna para DashboardView.xaml
+    /// Interação lógica para TicketsView.xam
     /// </summary>
-    public partial class DashboardView : Window
+    public partial class TicketsView : UserControl
     {
-        public DashboardView()
+        public TicketsView()
         {
             InitializeComponent();
-            DataContext = new DashboardViewModel();
         }
     }
 }

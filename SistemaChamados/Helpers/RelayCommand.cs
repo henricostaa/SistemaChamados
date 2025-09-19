@@ -6,9 +6,9 @@ namespace SistemaChamados.Helpers
     public class RelayCommand : ICommand
     {
         private readonly Action<object> executar;
-        private readonly Predicate<object> podeExecutar;
+        private readonly Func<object, bool> podeExecutar;
 
-        public RelayCommand(Action<object> executar, Predicate<object> podeExecutar = null)
+        public RelayCommand(Action<object> executar, Func<object, bool> podeExecutar = null)
         {
             this.executar = executar;
             this.podeExecutar = podeExecutar;

@@ -20,6 +20,7 @@ namespace SistemaChamados
         public MainWindow()
         {
             InitializeComponent();
+            HomeView home = new HomeView();
 
         }
     }
