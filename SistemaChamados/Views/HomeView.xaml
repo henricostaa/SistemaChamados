@@ -3,10 +3,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SistemaChamados.Views"
+             xmlns:vm="clr-namespace:SistemaChamados.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" 
+             d:DesignWidth="772"
+             Style="{StaticResource Page_Style}">
+
+    <UserControl.DataContext>
+        <vm:HomeVM />
+    </UserControl.DataContext>
+
     <Grid>
-            
+        <StackPanel Margin="40">
+            <!-- Título -->
+            <TextBlock Text="📊 Dashboard de Tickets"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="#2C3E50"
+                   Margin="0,0,0,30" />
+
+            <!-- Resumo dos Tickets -->
+            <UniformGrid Columns="4" Margin="0,0,0,30">
+                <!-- Card Template -->
+                <Border CornerRadius="16" Padding="20" Margin="10"
+                    Background="{StaticResource GradientBlue}"
+                    Effect="{StaticResource CardShadow}">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="Tickets Abertos" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding TotalAbertos}" Foreground="White" FontSize="30" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border CornerRadius="16" Padding="20" Margin="10"
+                    Background="{StaticResource GradientGreen}"
+                    Effect="{StaticResource CardShadow}">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="Tickets Fechados" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding TotalFechados}" Foreground="White" FontSize="30" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border CornerRadius="16" Padding="20" Margin="10"
+                    Background="{StaticResource GradientYellow}"
+                    Effect="{StaticResource CardShadow}">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="Pendentes" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding TotalPendentes}" Foreground="White" FontSize="30" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <Border CornerRadius="16" Padding="20" Margin="10"
+                    Background="{StaticResource GradientGray}"
+                    Effect="{StaticResource CardShadow}">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="Total de Tickets" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding TotalChamados}" Foreground="White" FontSize="30" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Últimos Tickets -->
+            <TextBlock Text="📝 Últimos Tickets"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#2C3E50"
+                   Margin="0,0,0,10" />
+
+            <ListBox ItemsSource="{Binding UltimosChamados}"
+                 Background="#ECF0F1"
+                 BorderThickness="0"
+                 Padding="10"
+                 Margin="0,0,0,20"
+                 ItemContainerStyle="{StaticResource TicketItemStyle}" />
+
+        </StackPanel>
     </Grid>
+
 </UserControl>

@@ -24,7 +24,7 @@
                         
                         <Border.Background>
                             <SolidColorBrush x:Name="BorderBackground"
-                                             Color="#272B20"/>
+                                             Color="Purple"/>
                         </Border.Background>
                         
                         <Grid>
@@ -57,8 +57,8 @@
                                 <Storyboard>
                                     <ColorAnimation Storyboard.TargetName="BorderBackground"
                                                     Storyboard.TargetProperty="Color"
-                                                    From="#272B2F"
-                                                    To="#3E434A"
+                                                    From="Purple"
+                                                    To="#BF40BF"
                                                     Duration="0:0:0.3"/>
                                 </Storyboard>
                             </BeginStoryboard>
@@ -72,8 +72,8 @@
                                     <ColorAnimation 
                                         Storyboard.TargetName="BorderBackground"
                                         Storyboard.TargetProperty="Color"
-                                        From="#3E434A"
-                                        To="#272B2F"
+                                        From="#BF40BF"
+                                        To="Purple"
                                         Duration="0:0:0.3"/>
                                 </Storyboard>
                             </BeginStoryboard>
@@ -84,7 +84,7 @@
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="#212529"/>
+                                    Value="#702963"/>
 
                             <Setter Property="Visibility"
                                     TargetName="Indicator"
@@ -101,7 +101,109 @@
                 
 
     </Style>
-    
+
+    <ImageBrush x:Key="close_app_def"
+            ImageSource="/Resources/shutdown_def.png"
+            Stretch="None" />
+
+    <ImageBrush x:Key="close_app_mo"
+            ImageSource="/Resources/shutdown_mo.png"
+            Stretch="None" />
+
+    <ImageBrush x:Key="min_app_def"
+            ImageSource="/Resources/minimize.png"
+            Stretch="None" />
+
+    <Style x:Key="ExitApp"
+           TargetType="{x:Type Button}">
+
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Margin"
+                Value="0,10,10,0" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="border"
+                            BorderThickness="0"
+                            Background="{StaticResource close_app_def}">
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource close_app_mo}" />
+
+                        </Trigger>
+
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource close_app_mo}" />
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="MinApp"
+       TargetType="{x:Type Button}">
+
+        <Setter Property="Height"
+            Value="40" />
+        <Setter Property="Width"
+            Value="40" />
+        <Setter Property="HorizontalAlignment"
+            Value="Right" />
+        <Setter Property="VerticalAlignment"
+            Value="Top" />
+        <Setter Property="Margin"
+            Value="0,10,10,0" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="border"
+                        BorderThickness="0"
+                        Background="{StaticResource min_app_def}">
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
 
 
 </ResourceDictionary>

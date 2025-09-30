@@ -25,6 +25,7 @@ namespace SistemaChamados.ViewModels
 
         public HomeVM()
         {
+            
             CarregarVisaoGeralCommand = new RelayCommand(CarregarVisaoGeral);
         }
 
