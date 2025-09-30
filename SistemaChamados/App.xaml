@@ -156,6 +156,53 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="RoundedComboBox" TargetType="ComboBox">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="Padding" Value="6"/>
+                <Setter Property="Background" Value="#F3E5F5"/>
+                <Setter Property="BorderBrush" Value="#CE93D8"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Foreground" Value="#4A148C"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6" />
+                                <ContentPresenter Margin="6"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Content="{TemplateBinding SelectionBoxItem}" />
+                                <Popup x:Name="PART_Popup"
+                           Placement="Bottom"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           AllowsTransparency="True"
+                           Focusable="False"
+                           PopupAnimation="Slide">
+                                    <Grid>
+                                        <Border Background="White"
+                                    BorderBrush="#CE93D8"
+                                    BorderThickness="1"
+                                    CornerRadius="6">
+                                            <ScrollViewer>
+                                                <ItemsPresenter />
+                                            </ScrollViewer>
+                                        </Border>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary> 
             
         

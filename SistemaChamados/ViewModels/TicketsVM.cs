@@ -15,7 +15,22 @@ namespace SistemaChamados.ViewModels
     public class TicketsVM : ViewModelBase
     {
         public ObservableCollection<Chamado> Chamados { get; set; } = new ObservableCollection<Chamado>();
+        public List<string> Categorias { get; } = new List<string> { "Suporte Técnico", "Financeiro", "Infraestrutura", "Outro" };
+        public List<string> Prioridades { get; } = new List<string> { "Baixa", "Média", "Alta", "Urgente" };
 
+        private string _categoria;
+        public string Categoria
+        {
+            get => _categoria;
+            set { _categoria = value; OnPropertyChanged(); }
+        }
+
+        private string _prioridade;
+        public string Prioridade
+        {
+            get => _prioridade;
+            set { _prioridade = value; OnPropertyChanged(); }
+        }
         private string _titulo;
         public string Titulo
         {
@@ -52,12 +67,20 @@ namespace SistemaChamados.ViewModels
                 {
                     Titulo = Titulo,
                     Descricao = Descricao,
+                    Categoria = Categoria,
+                    Prioridade = Prioridade,
                     Status = Status
                 });
 
                 Titulo = string.Empty;
                 Descricao = string.Empty;
+                Categoria = string.Empty;
+                Prioridade = string.Empty;
                 Status = "Aberto";
+                OnPropertyChanged(nameof(Titulo));
+                OnPropertyChanged(nameof(Descricao));
+                OnPropertyChanged(nameof(Categoria));
+                OnPropertyChanged(nameof(Prioridade));
             }
         }
     }
