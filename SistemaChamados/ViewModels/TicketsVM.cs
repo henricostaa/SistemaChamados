@@ -74,8 +74,8 @@ namespace SistemaChamados.ViewModels
 
                 Titulo = string.Empty;
                 Descricao = string.Empty;
-                Categoria = string.Empty;
-                Prioridade = string.Empty;
+                Categoria =  null;
+                Prioridade = null;
                 Status = "Aberto";
                 OnPropertyChanged(nameof(Titulo));
                 OnPropertyChanged(nameof(Descricao));
