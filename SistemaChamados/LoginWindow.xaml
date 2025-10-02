@@ -63,7 +63,8 @@
                 <Button Content="Entrar"
                         Width="160" Height="35"
                         Style="{StaticResource ModernLoginButton}"
-                        Click="Entrar_Click" />
+                        Click="Entrar_Click"
+                        IsDefault="True"/>
 
             </StackPanel>
 

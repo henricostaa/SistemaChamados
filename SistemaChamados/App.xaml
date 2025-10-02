@@ -156,7 +156,95 @@
                 </Setter>
             </Style>
 
-           
+    
+                <Style TargetType="ComboBox" x:Key="RoundedComboBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                SnapsToDevicePixels="True">
+                                    <DockPanel>
+                                        <ContentPresenter Margin="6,0,0,0"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Left"
+                                                  Content="{TemplateBinding SelectionBoxItem}" />
+                                        <ToggleButton DockPanel.Dock="Right"
+                                                      IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Focusable="False"
+                                                      Selector.IsSelected="False"
+                                                      ClickMode="Press"
+                                                      Background="Transparent"
+                                                      HorizontalContentAlignment="Right"
+                                                      BorderThickness="0"
+                                                      Margin="0,0,5,0">
+                                            <Path Fill="#4A148C"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Border Background="Transparent"
+                                                            BorderThickness="0">
+                                                        <Grid>
+                                                            <Path x:Name="Arrow"
+                                                                  Fill="#4A148C"
+                                                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                                                  HorizontalAlignment="Right"
+                                                                  VerticalAlignment="Center"
+                                                                  Margin="0,0,5,0" />
+                                                        </Grid>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <!-- Neutraliza hover -->
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="Arrow" Property="Fill" Value="#4A148C"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
+                                        </ToggleButton>
+                                    </DockPanel>
+                                </Border>
+                                <Popup x:Name="PART_Popup"                               
+                                       Placement="Bottom"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       PopupAnimation="Slide">
+                                    <Border Background="#F3E5F5"
+                                            BorderBrush="#CE93D8"
+                                            BorderThickness="1"
+                                            CornerRadius="6">
+                                        <ScrollViewer>
+                                            <ItemsPresenter />
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <!-- Hover do ComboBox (opcional) -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#CE93D8" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="#F3E5F5"/>
+                    <Setter Property="BorderBrush" Value="#CE93D8"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Foreground" Value="#4A148C"/>
+                    <Setter Property="Padding" Value="6"/>
+                    <Setter Property="Height" Value="35"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+         
         </ResourceDictionary> 
             
         

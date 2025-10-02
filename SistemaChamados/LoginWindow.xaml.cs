@@ -24,7 +24,13 @@ namespace SistemaChamados
             }
             else
             {
-                MessageBox.Show("Usuário ou senha inválidos.");
+                MessageBox.Show(
+                    "❌ Usuário ou senha inválidos.\nVerifique os dados e tente novamente.",
+                    "Erro de Login",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+
             }
         }
 
