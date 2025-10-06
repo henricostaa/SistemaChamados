@@ -1,4 +1,6 @@
 ﻿using SistemaChamados;
+using SistemaChamados.Data;
+using SistemaChamados.Models;
 using System.Windows;
 
 namespace SistemaChamados
@@ -8,29 +10,43 @@ namespace SistemaChamados
         public LoginWindow()
         {
             InitializeComponent();
+           
+         
         }
+
+       
 
         private void Entrar_Click(object sender, RoutedEventArgs e)
         {
-            string usuario = txtUsuario.Text;
-            string senha = txtSenha.Password;
+            string username = txtUsuario.Text.Trim();
+            string senha = txtSenha.Password.Trim();
 
-            // Validação simples (substitua por lógica real)
-            if (usuario == "admin" && senha == "123")
+            using (var db = new AppDbContext())
             {
-                MainWindow main = new MainWindow();
+                var usuario = db.Usuarios.FirstOrDefault(u => u.Username == username);
+
+                if (usuario == null)
+                {
+                    MessageBox.Show("❌ Usuário não encontrado.", "Erro de Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (usuario.SenhaHash != senha)
+                {
+                    MessageBox.Show("❌ Senha incorreta.", "Erro de Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (usuario.Status != "Ativo")
+                {
+                    MessageBox.Show("⚠ Usuário inativo.", "Erro de Login", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Login bem-sucedido
+                MainWindow main = new MainWindow(); // ou passe o usuário logado se quiser
                 main.Show();
                 this.Close();
-            }
-            else
-            {
-                MessageBox.Show(
-                    "❌ Usuário ou senha inválidos.\nVerifique os dados e tente novamente.",
-                    "Erro de Login",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-
-
             }
         }
 

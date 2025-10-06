@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using SistemaChamados.Data;
 using SistemaChamados.Helpers;
 using SistemaChamados.Models;
 using SistemaChamados.ViewModels;
@@ -14,6 +15,7 @@ namespace SistemaChamados.ViewModels
 {
     public class TicketsVM : ViewModelBase
     {
+
         public ObservableCollection<Chamado> Chamados { get; set; } = new ObservableCollection<Chamado>();
         public List<string> Categorias { get; } = new List<string> { "Suporte Técnico", "Financeiro", "Infraestrutura", "Outro" };
         public List<string> Prioridades { get; } = new List<string> { "Baixa", "Média", "Alta", "Urgente" };
@@ -57,26 +59,49 @@ namespace SistemaChamados.ViewModels
         public TicketsVM()
         {
             CriarChamadoCommand = new RelayCommand(CriarChamado);
+            CarregarChamados();
+        }
+
+        private void CarregarChamados()
+        {
+            using (var db = new AppDbContext())
+            {
+                var lista = db.Chamados.ToList();
+                Chamados = new ObservableCollection<Chamado>(lista);
+                OnPropertyChanged(nameof(Chamados));
+            }
         }
 
         private void CriarChamado(object obj)
         {
             if (!string.IsNullOrWhiteSpace(Titulo))
             {
-                Chamados.Add(new Chamado
+                var novoChamado = new Chamado
                 {
                     Titulo = Titulo,
                     Descricao = Descricao,
                     Categoria = Categoria,
                     Prioridade = Prioridade,
-                    Status = Status
-                });
+                    Status = Status,
+                    DataAbertura = DateTime.Now,
+                    SolicitanteId = 1 // ← Substitua pelo ID do usuário logado
+                };
 
+                using (var db = new AppDbContext())
+                {
+                    db.Chamados.Add(novoChamado);
+                    db.SaveChanges();
+                }
+
+                Chamados.Add(novoChamado); // Atualiza a lista visível
+
+                // Limpar campos
                 Titulo = string.Empty;
                 Descricao = string.Empty;
-                Categoria =  null;
+                Categoria = null;
                 Prioridade = null;
                 Status = "Aberto";
+
                 OnPropertyChanged(nameof(Titulo));
                 OnPropertyChanged(nameof(Descricao));
                 OnPropertyChanged(nameof(Categoria));

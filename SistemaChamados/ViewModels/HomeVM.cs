@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using SistemaChamados.Helpers;
 using System.ComponentModel;
 using System.Windows.Input;
+using SistemaChamados.Data;
 
 namespace SistemaChamados.ViewModels
 {
@@ -24,9 +25,32 @@ namespace SistemaChamados.ViewModels
         public ICommand CarregarVisaoGeralCommand { get; }
 
         public HomeVM()
+
         {
-            
+
+            CarregarChamadosBanco();
             CarregarVisaoGeralCommand = new RelayCommand(CarregarVisaoGeral);
+        }
+        private void CarregarChamadosBanco()
+        {
+            using (var db = new AppDbContext())
+            {
+                var lista = db.Chamados.OrderByDescending(c => c.DataAbertura).ToList();
+                Chamados = new ObservableCollection<Chamado>(lista);
+            }
+
+            UltimosChamados.Clear();
+            foreach (var chamado in Chamados.Take(5))
+            {
+                UltimosChamados.Add($"{chamado.Titulo} – {chamado.Status}");
+            }
+
+            OnPropertyChanged(nameof(Chamados));
+            OnPropertyChanged(nameof(UltimosChamados));
+            OnPropertyChanged(nameof(TotalAbertos));
+            OnPropertyChanged(nameof(TotalFechados));
+            OnPropertyChanged(nameof(TotalPendentes));
+            OnPropertyChanged(nameof(TotalChamados));
         }
 
         private void CarregarVisaoGeral(object obj)

@@ -51,5 +51,13 @@ namespace SistemaChamados.Models
         public DateTime? DataNascimento { get; set; }
 
         public string? Observacoes { get; set; }
+
+        public ICollection<Chamado>? ChamadosCriados { get; set; }
+        public ICollection<Chamado>? ChamadosAtribuidos { get; set; }
+
+
+
     }
+
+
 }

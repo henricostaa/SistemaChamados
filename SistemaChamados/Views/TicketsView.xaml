@@ -80,57 +80,7 @@
         </Border>
 
         <!-- 📋 Lista de Tickets Criados
-        <Border Grid.Column="1" Background="White" CornerRadius="10" Padding="20" Margin="10"
-                Effect="{StaticResource CardShadow}">
-            <StackPanel>
-                <TextBlock Text="Tickets Criados" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20" />
-
-                <ListBox ItemsSource="{Binding Chamados}" BorderThickness="0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border CornerRadius="6" Padding="10" Margin="0,0,0,10" Background="#F9F9F9">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Titulo}" FontWeight="Bold" FontSize="14" />
-                                    <TextBlock Text="{Binding Descricao}" FontStyle="Italic" FontSize="12" Foreground="#666" /> -->
-
-                                    <!-- Categoria 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="📁 " FontSize="12" />
-                                        <TextBlock Text="{Binding Categoria}" FontSize="12" Foreground="#444" />
-                                    </StackPanel> -->
-
-                                    <!-- Prioridade com cor 
-                                    <TextBlock Text="{Binding Prioridade}" FontSize="12" FontWeight="SemiBold">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Foreground" Value="#888" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Prioridade}" Value="Baixa">
-                                                        <Setter Property="Foreground" Value="Green" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Prioridade}" Value="Média">
-                                                        <Setter Property="Foreground" Value="Orange" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Prioridade}" Value="Alta">
-                                                        <Setter Property="Foreground" Value="Red" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Prioridade}" Value="Urgente">
-                                                        <Setter Property="Foreground" Value="DarkRed" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock> -->
-
-                                    <!-- Status 
-                                    <TextBlock Text="{Binding Status}" FontSize="12" Foreground="#888" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
-        </Border>  -->
+          -->
     </Grid>
 
 </UserControl>
