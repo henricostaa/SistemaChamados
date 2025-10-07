@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using SistemaChamados.Data;
 using SistemaChamados.Helpers;
@@ -53,13 +54,41 @@ namespace SistemaChamados.ViewModels
             get => _status;
             set { _status = value; OnPropertyChanged(); }
         }
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case nameof(Titulo):
+                        return string.IsNullOrWhiteSpace(Titulo) ? "Título é obrigatório." : null;
+                    case nameof(Descricao):
+                        return string.IsNullOrWhiteSpace(Descricao) ? "Descrição é obrigatória." : null;
+                    case nameof(Categoria):
+                        return string.IsNullOrWhiteSpace(Categoria) ? "Categoria é obrigatória." : null;
+                    case nameof(Prioridade):
+                        return string.IsNullOrWhiteSpace(Prioridade) ? "Prioridade é obrigatória." : null;
+                    default:
+                        return null;
+                }
+            }
+        }
 
+        public string Error => null;
         public ICommand CriarChamadoCommand { get; }
 
         public TicketsVM()
         {
-            CriarChamadoCommand = new RelayCommand(CriarChamado);
+            CriarChamadoCommand = new RelayCommand(CriarChamado, PodeCriarChamado);
             CarregarChamados();
+        }
+
+        private bool PodeCriarChamado(object obj)
+        {
+            return string.IsNullOrWhiteSpace(this[nameof(Titulo)]) &&
+                   string.IsNullOrWhiteSpace(this[nameof(Descricao)]) &&
+                   string.IsNullOrWhiteSpace(this[nameof(Categoria)]) &&
+                   string.IsNullOrWhiteSpace(this[nameof(Prioridade)]);
         }
 
         private void CarregarChamados()
@@ -107,6 +136,7 @@ namespace SistemaChamados.ViewModels
                 OnPropertyChanged(nameof(Categoria));
                 OnPropertyChanged(nameof(Prioridade));
             }
+            MessageBox.Show("Ticket criado com sucesso!", "Confirmação", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

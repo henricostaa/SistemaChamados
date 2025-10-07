@@ -22,9 +22,10 @@
 
 
                 <StackPanel>
-                    <TextBlock Text="Titulo" FontSize="14" Margin="0,5,0,5"/>
+                    <TextBlock Text="Titulo*" FontSize="14" Margin="0,5,0,5"/>
                     <Border CornerRadius="6" BorderBrush="#CE93D8" BorderThickness="1" Background="#F3E5F5">
-                        <TextBox Text="{Binding Titulo}"                            
+                        <TextBox Text="{Binding Titulo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 
                                  Height="35"                 
                                  FontSize="14"                  
                                  Padding="8"                 
@@ -36,9 +37,9 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="Descrição"  FontSize="14" Margin="0,5,0,5"/>
+                    <TextBlock Text="Descrição*"  FontSize="14" Margin="0,5,0,5"/>
                     <Border CornerRadius="6" BorderBrush="#CE93D8" BorderThickness="1" Background="#F3E5F5">
-                        <TextBox Text="{Binding Descricao}"                 
+                        <TextBox Text="{Binding Descricao, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"                 
                                  Height="100"                 
                                  AcceptsReturn="True" 
                                  TextWrapping="Wrap"
@@ -52,18 +53,18 @@
                 </StackPanel>
                 
                 <StackPanel>
-                    <TextBlock Text="Categoria" FontSize="14" Margin="0,5,0,5"/>
+                    <TextBlock Text="Categoria*" FontSize="14" Margin="0,5,0,5"/>
                     <ComboBox ItemsSource="{Binding Categorias}"
-                              SelectedItem="{Binding Categoria}"
+                              SelectedItem="{Binding Categoria, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               Style="{StaticResource RoundedComboBox}"                   
                               Height="35"       
                               Margin="0,0,0,10"/>
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="Prioridade" FontSize="14" Margin="0,5,0,5"/>
+                    <TextBlock Text="Prioridade*" FontSize="14" Margin="0,5,0,5"/>
                     <ComboBox ItemsSource="{Binding Prioridades}"
-                              SelectedItem="{Binding Prioridade}"
+                              SelectedItem="{Binding Prioridade, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               Style="{StaticResource RoundedComboBox}"
                               Height="35"
                               Margin="0,0,0,10"/>
