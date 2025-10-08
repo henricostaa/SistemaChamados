@@ -33,7 +33,7 @@ namespace SistemaChamados.ViewModels
         {
             if (Usuario == "admin" && Senha == "123")
             {
-                Sessao.UsuarioLogado = Usuario;
+               
                 var home = new HomeView();
                 
 

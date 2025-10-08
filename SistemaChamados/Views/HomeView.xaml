@@ -19,104 +19,126 @@
             <TextBlock Text="📊 Dashboard de Tickets"
                    FontSize="32"
                    FontWeight="Bold"
-                   Foreground="#2C3E50"
+                   Foreground="White"
                    Margin="0,0,0,30" />
 
-            <!-- Resumo dos Tickets -->
+            <!-- Resumo dos Tickets com Filtros -->
             <UniformGrid Columns="4" Margin="0,0,0,30">
-                <!-- Card Template -->
-                <Border CornerRadius="16" Padding="20" Margin="10"
-                    Background="{StaticResource GradientBlue}"
-                    Effect="{StaticResource CardShadow}">
-                    <StackPanel HorizontalAlignment="Center">
-                        <TextBlock Text="Tickets Abertos" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                        <TextBlock Text="{Binding TotalAbertos}" Foreground="White" FontSize="30" FontWeight="Bold"/>
-                    </StackPanel>
-                </Border>
+                <!-- Botão Abertos -->
+                <Border CornerRadius="16"
+                        Padding="20"
+                        Margin="10"
+                        Background="{StaticResource GradientBlue}"
+                        Effect="{StaticResource CardShadow}">
 
-                <Border CornerRadius="16" Padding="20" Margin="10"
-                    Background="{StaticResource GradientGreen}"
-                    Effect="{StaticResource CardShadow}">
+                    <Button Command="{Binding FiltrarAbertosCommand}" Background="Transparent">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Tickets Abertos" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                            <TextBlock Text="{Binding TotalAbertos}" Foreground="White" FontSize="30" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+
+                </Border>
+                
+
+                <!-- Botão Fechados -->
+                <Border CornerRadius="16"
+                     Padding="20"
+                     Margin="10"
+                     Background="{StaticResource GradientGreen}"
+                     Effect="{StaticResource CardShadow}">
+                    
+
+                    <Button Command="{Binding FiltrarFechadosCommand}" Background="Transparent">
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock Text="Tickets Fechados" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
                         <TextBlock Text="{Binding TotalFechados}" Foreground="White" FontSize="30" FontWeight="Bold"/>
                     </StackPanel>
+                </Button>
                 </Border>
+                
+                <!-- Botão Pendentes -->
+                <Border CornerRadius="16"
+                 Padding="20"
+                 Margin="10"
+                 Background="{StaticResource GradientYellow}"
+                 Effect="{StaticResource CardShadow}">
 
-                <Border CornerRadius="16" Padding="20" Margin="10"
-                    Background="{StaticResource GradientYellow}"
-                    Effect="{StaticResource CardShadow}">
+                    <Button Command="{Binding FiltrarPendentesCommand}" Background="Transparent">
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock Text="Pendentes" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
                         <TextBlock Text="{Binding TotalPendentes}" Foreground="White" FontSize="30" FontWeight="Bold"/>
                     </StackPanel>
+                </Button>
                 </Border>
 
-                <Border CornerRadius="16" Padding="20" Margin="10"
-                    Background="{StaticResource GradientGray}"
-                    Effect="{StaticResource CardShadow}">
+                <!-- Botão Total tickets -->
+                <Border CornerRadius="16"
+                     Padding="20"
+                     Margin="10"
+                     Background="{StaticResource GradientGray}"
+                     Effect="{StaticResource CardShadow}">
+                    <Button Command="{Binding FiltrarTodosCommand}" Background="Transparent">
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock Text="Total de Tickets" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
                         <TextBlock Text="{Binding TotalChamados}" Foreground="White" FontSize="30" FontWeight="Bold"/>
                     </StackPanel>
+                </Button>
                 </Border>
             </UniformGrid>
 
-            <!-- Últimos Tickets -->
-            
-                <Border Grid.Column="1" Background="White" CornerRadius="10" Padding="20" Margin="10"
-        Effect="{StaticResource CardShadow}">
-                    <StackPanel>
-                        <TextBlock Text="Tickets Criados" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20" />
+            <!-- Lista de Tickets Filtrados -->
+            <Border Grid.Column="1" Background="White" CornerRadius="10" Padding="20" Margin="10"
+                    Effect="{StaticResource CardShadow}">
+                <StackPanel>
+                    <TextBlock Text="Tickets Criados" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20" />
 
-                        <ListBox ItemsSource="{Binding Chamados}" BorderThickness="0">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Border CornerRadius="6" Padding="10" Margin="0,0,0,10" Background="#F9F9F9">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding Titulo}" FontWeight="Bold" FontSize="14" />
-                                            <TextBlock Text="{Binding Descricao}" FontStyle="Italic" FontSize="12" Foreground="#666" />
+                    <ListBox ItemsSource="{Binding ChamadosFiltrados}" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="6" Padding="10" Margin="0,0,0,10" Background="#F9F9F9">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Titulo}" FontWeight="Bold" FontSize="14" />
+                                        <TextBlock Text="{Binding Descricao}" FontStyle="Italic" FontSize="12" Foreground="#666" />
 
-                                            <!-- Categoria-->
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="📁 " FontSize="12" />
-                                                <TextBlock Text="{Binding Categoria}" FontSize="12" Foreground="#444" />
-                                            </StackPanel>
-
-                                            <!-- Prioridade com cor -->
-                                            <TextBlock Text="{Binding Prioridade}" FontSize="12" FontWeight="SemiBold">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Foreground" Value="#888" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Prioridade}" Value="Baixa">
-                                                                <Setter Property="Foreground" Value="Green" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Prioridade}" Value="Média">
-                                                                <Setter Property="Foreground" Value="Orange" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Prioridade}" Value="Alta">
-                                                                <Setter Property="Foreground" Value="Red" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Prioridade}" Value="Urgente">
-                                                                <Setter Property="Foreground" Value="DarkRed" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-
-                                            <!-- Status  -->
-                                            <TextBlock Text="{Binding Status}" FontSize="12" Foreground="#888" />
+                                        <!-- Categoria-->
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="📁 " FontSize="12" />
+                                            <TextBlock Text="{Binding Categoria}" FontSize="12" Foreground="#444" />
                                         </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
-                </Border>
-            
+
+                                        <!-- Prioridade com cor -->
+                                        <TextBlock Text="{Binding Prioridade}" FontSize="12" FontWeight="SemiBold">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="#888" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Prioridade}" Value="Baixa">
+                                                            <Setter Property="Foreground" Value="Green" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Prioridade}" Value="Média">
+                                                            <Setter Property="Foreground" Value="Orange" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Prioridade}" Value="Alta">
+                                                            <Setter Property="Foreground" Value="Red" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Prioridade}" Value="Urgente">
+                                                            <Setter Property="Foreground" Value="DarkRed" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+
+                                        <!-- Status -->
+                                        <TextBlock Text="{Binding Status}" FontSize="12" Foreground="#888" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Grid>
-
 </UserControl>

@@ -3,10 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SistemaChamados.ViewModels"
              xmlns:local="clr-namespace:SistemaChamados.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="600" d:DesignWidth="772">
+    <UserControl.DataContext>
+        <vm:UsuarioVM />
+    </UserControl.DataContext>
+
+    <Grid Margin="30">
+        <Border Background="White" CornerRadius="10" Padding="30" Effect="{StaticResource CardShadow}">
+            <StackPanel>
+                <TextBlock Text="Perfil do Técnico" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,20" />
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Nome:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Nome}" FontSize="16" Foreground="#4A148C" />
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="E-mail:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Email}" FontSize="16" Foreground="#4A148C" />
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Departamento:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Departamento}" FontSize="16" Foreground="#4A148C" />
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,20">
+                    <TextBlock Text="Telefone:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Telefone}" FontSize="16" Foreground="#4A148C" />
+                </StackPanel>
+                
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Endereço:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Endereço}" FontSize="16" Foreground="#4A148C" />
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="Data De Nascimento:" FontWeight="Bold" />
+                    <TextBlock Text="{Binding DataNascimento}" FontSize="16" Foreground="#4A148C" />
+                </StackPanel>
+
+
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

@@ -2,6 +2,7 @@
 using SistemaChamados.Data;
 using SistemaChamados.Models;
 using System.Windows;
+using SistemaChamados.Helpers;
 
 namespace SistemaChamados
 {
@@ -42,6 +43,8 @@ namespace SistemaChamados
                     MessageBox.Show("⚠ Usuário inativo.", "Erro de Login", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+
+                Sessao.UsuarioLogado = usuario;
 
                 // Login bem-sucedido
                 MainWindow main = new MainWindow(); // ou passe o usuário logado se quiser
