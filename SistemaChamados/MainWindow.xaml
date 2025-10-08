@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:SistemaChamados.ViewModels"
         xmlns:Menu="clr-namespace:SistemaChamados.Helpers"
+        
         mc:Ignorable="d"
         Title="Sistema de Chamados"
         MinWidth="800"
@@ -55,8 +56,19 @@
                         </Grid>
                     </Menu:Btn>
 
+
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding UsuarioCommand}">
+                         Command="{Binding HistoricoCommand}" >
+                        <Grid>
+                            <Image Source="/Resources/ticket.png"
+                         Style="{StaticResource Image_Style}" />
+                            <TextBlock Text="Histórico de Tickets"
+                         Style="{StaticResource Text_Style}" />
+                        </Grid>
+                    </Menu:Btn>
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding UsuarioCommand}" >
                         <Grid>
                             <Image Source="/Resources/user.png"
                                    Style="{StaticResource Image_Style}" />
@@ -64,7 +76,8 @@
                                        Style="{StaticResource Text_Style}" />
                         </Grid>
                     </Menu:Btn>
-                    
+
+
                 </StackPanel>
             </Grid>
 

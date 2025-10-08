@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="SistemaChamados.Views.HistoricoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SistemaChamados.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="772">
+
+    <UserControl.DataContext>
+        <vm:HistoricoVM />
+    </UserControl.DataContext>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Cabeçalho -->
+            <RowDefinition Height="Auto"/>
+            <!-- Filtros -->
+            <RowDefinition Height="*"/>
+            <!-- Lista -->
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <TextBlock Grid.Row="0"
+                   Text="📂 Histórico de Chamados"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="White"
+                   Margin="0,0,0,20" />
+
+        <!-- Filtros -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
+            <GroupBox Header="Status" Margin="0,0,20,0">
+                <ComboBox Width="150"
+                          SelectedItem="{Binding FiltroStatus, Mode=TwoWay}">
+                    <ComboBoxItem Content="Todos" />
+                    <ComboBoxItem Content="Aberto" />
+                    <ComboBoxItem Content="Em Andamento" />
+                    <ComboBoxItem Content="Concluído" />
+                    <ComboBoxItem Content="Rejeitado" />
+                </ComboBox>
+            </GroupBox>
+
+            <GroupBox Header="Prioridade" Margin="0,0,20,0">
+                <ComboBox Width="150"
+                          SelectedItem="{Binding FiltroPrioridade, Mode=TwoWay}">
+                    <ComboBoxItem Content="Todas" />
+                    <ComboBoxItem Content="Urgente" />
+                    <ComboBoxItem Content="Alta" />
+                    <ComboBoxItem Content="Média" />
+                    <ComboBoxItem Content="Baixa" />
+                </ComboBox>
+            </GroupBox>
+
+            <GroupBox Header="Período" Margin="0,0,20,0">
+                <ComboBox Width="150"
+                          SelectedItem="{Binding FiltroPeriodo, Mode=TwoWay}">
+                    <ComboBoxItem Content="Todo Período" />
+                    <ComboBoxItem Content="Últimos 7 Dias" />
+                    <ComboBoxItem Content="Últimos 30 Dias" />
+                </ComboBox>
+            </GroupBox>
+
+            <!-- Botão Aplicar Filtros -->
+            <Button Content="Aplicar Filtros"
+                    Command="{Binding AplicarFiltrosCommand}"
+                    Width="150"
+                    Height="35"
+                    Margin="0,0,20,0"
+                    Background="#4B0082"
+                    Foreground="White"
+                    FontWeight="Bold" />
+        </StackPanel>
+
+        <!-- Lista de Chamados -->
+        <ListView Grid.Row="2"
+                  ItemsSource="{Binding ChamadosFiltrados}"
+                  SelectedItem="{Binding ChamadoSelecionado, Mode=TwoWay}"
+                  Margin="0"
+                  Background="White"
+                  BorderBrush="#DDD"
+                  BorderThickness="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ChamadoId}" Width="50" />
+                    <GridViewColumn Header="Título" DisplayMemberBinding="{Binding Titulo}" Width="200" />
+                    <GridViewColumn Header="Solicitante" DisplayMemberBinding="{Binding Solicitante.Nome}" Width="150" />
+                    <GridViewColumn Header="Analista" DisplayMemberBinding="{Binding AtribuidoA.Nome}" Width="150" />
+                    <GridViewColumn Header="Categoria" DisplayMemberBinding="{Binding Categoria}" Width="100" />
+                    <GridViewColumn Header="Prioridade" DisplayMemberBinding="{Binding Prioridade}" Width="100" />
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100" />
+                    <GridViewColumn Header="Abertura" DisplayMemberBinding="{Binding DataAbertura, StringFormat=d}" Width="120" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

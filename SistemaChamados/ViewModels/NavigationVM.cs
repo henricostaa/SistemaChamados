@@ -22,17 +22,20 @@ namespace SistemaChamados.ViewModels
         public ICommand TicketsCommand { get; set; }
         public ICommand ConfiguracoesCommand { get; set; }
         public ICommand UsuarioCommand { get; set; }
+        public ICommand HistoricoCommand { get; set; }
 
         private void Home(object obj) => CurrentView = new HomeView();
         private void Tickets(object obj) => CurrentView = new TicketsView();
         private void Configuracoes(object obj) => CurrentView = new ConfiguracoesView();
         private void Usuario(object obj) => CurrentView = new UsuarioView();
+        private void Historico(object obj) => CurrentView = new HistoricoView();
         public NavigationVM()
         {
             HomeCommand = new RelayCommand(Home);
             TicketsCommand = new RelayCommand(Tickets);
             ConfiguracoesCommand = new RelayCommand(Configuracoes);
             UsuarioCommand = new RelayCommand(Usuario);
+            HistoricoCommand = new RelayCommand(Historico);
             CurrentView = new HomeView();
         }
     }
