@@ -74,25 +74,170 @@
         </StackPanel>
 
         <!-- Lista de Chamados -->
-        <ListView Grid.Row="2"
-                  ItemsSource="{Binding ChamadosFiltrados}"
-                  SelectedItem="{Binding ChamadoSelecionado, Mode=TwoWay}"
-                  Margin="0"
-                  Background="White"
-                  BorderBrush="#DDD"
-                  BorderThickness="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ChamadoId}" Width="50" />
-                    <GridViewColumn Header="Título" DisplayMemberBinding="{Binding Titulo}" Width="200" />
-                    <GridViewColumn Header="Solicitante" DisplayMemberBinding="{Binding Solicitante.Username}" Width="150" />
-                    <GridViewColumn Header="Analista" DisplayMemberBinding="{Binding AtribuidoA.Username}" Width="150" />
-                    <GridViewColumn Header="Categoria" DisplayMemberBinding="{Binding Categoria}" Width="100" />
-                    <GridViewColumn Header="Prioridade" DisplayMemberBinding="{Binding Prioridade}" Width="100" />
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100" />
-                    <GridViewColumn Header="Abertura" DisplayMemberBinding="{Binding DataAbertura, StringFormat=d}" Width="120" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding ChamadosFiltrados}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" ItemWidth="180" ItemHeight="Auto" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="8" Margin="10" Padding="10" Background="White" Width="160">
+                             <Border.Effect>
+                                <DropShadowEffect Color="Black"
+                                                  BlurRadius="8"
+                                                  ShadowDepth="2"
+                                                  Opacity="0.2">
+                                    
+                                </DropShadowEffect>
+                            </Border.Effect> 
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="#DDD"/>
+                                    <Setter Property="BorderThickness" Value="2"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status}" Value="Aberto">
+                                            <Setter Property="BorderBrush" Value="Red"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="Em Andamento">
+                                            <Setter Property="BorderBrush" Value="Goldenrod"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="Concluído">
+                                            <Setter Property="BorderBrush" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <StackPanel>
+                                <TextBlock Text="{Binding Titulo}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Foreground="Purple"/>
+                                <Border CornerRadius="4" Padding="4,2" Margin="0,5,0,0" HorizontalAlignment="Left">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="#EEE"/>
+                                            <Setter Property="BorderBrush" Value="#CCC"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Prioridade}" Value="Baixa">
+                                                    <Setter Property="Background" Value="#E8F5E9"/>
+                                                    <!-- Verde claro -->
+                                                    <Setter Property="BorderBrush" Value="Green"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Prioridade}" Value="Média">
+                                                    <Setter Property="Background" Value="#FFFDE7"/>
+                                                    <!-- Amarelo muito claro -->
+                                                    <Setter Property="BorderBrush" Value="Orange"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Prioridade}" Value="Alta">
+                                                    <Setter Property="Background" Value="#FFEBEE"/>
+                                                    <!-- Vermelho claro -->
+                                                    <Setter Property="BorderBrush" Value="Red"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Prioridade}" Value="Urgente">
+                                                    <Setter Property="Background" Value="#FDECEA"/>
+                                                    <!-- Vermelho bem claro -->
+                                                    <Setter Property="BorderBrush" Value="DarkRed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock Text="{Binding Prioridade}"
+               FontSize="12"
+               FontWeight="SemiBold"
+               Foreground="Black"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+                                </Border>
+
+
+                                <Border CornerRadius="4" Padding="4,2" Margin="0,5,0,0" HorizontalAlignment="Left">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="#EEE"/>
+                                            <Setter Property="BorderBrush" Value="#CCC"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Aberto">
+                                                    <Setter Property="Background" Value="#FFEBEE"/>
+                                                    <!-- Rosa claro -->
+                                                    <Setter Property="BorderBrush" Value="#C62828"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Em Andamento">
+                                                    <Setter Property="Background" Value="#FFF3E0"/>
+                                                    <!-- Laranja claro -->
+                                                    <Setter Property="BorderBrush" Value="#EF6C00"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Concluído">
+                                                    <Setter Property="Background" Value="#E8F5E9"/>
+                                                    <!-- Verde claro -->
+                                                    <Setter Property="BorderBrush" Value="#2E7D32"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <TextBlock Text="{Binding Status}"
+               FontSize="12"
+               FontWeight="SemiBold"
+               Foreground="Black"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+                                </Border>
+
+
+                                <TextBlock Text="{Binding Solicitante.Username}" FontSize="12" />
+
+                                <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                                    <!-- Atender -->
+                                    <Button Content="Atender"
+                                    Command="{Binding DataContext.AtenderChamadoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" Margin="0,0,0,5">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Aberto">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                    <!-- Concluir -->
+                                    <Button Content="Concluir"
+                                    Command="{Binding DataContext.ConcluirChamadoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" Margin="0,0,0,5">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Aberto">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Em Andamento">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                    <!-- Mostrar Detalhes -->
+                                    <Button Content="Mostrar Detalhes"
+                                    Command="{Binding DataContext.MostrarDetalhesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
+    
 </UserControl>

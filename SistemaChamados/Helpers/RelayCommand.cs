@@ -3,25 +3,56 @@ using System.Windows.Input;
 
 namespace SistemaChamados.Helpers
 {
-    public class RelayCommand : ICommand
+    // RelayCommand genérico (T)
+    public class RelayCommand<T> : ICommand
     {
-        private readonly Action<object> executar;
-        private readonly Func<object, bool> podeExecutar;
+        private readonly Action<T> _execute;
+        private readonly Predicate<T>? _canExecute;
 
-        public RelayCommand(Action<object> executar, Func<object, bool> podeExecutar = null)
+        public RelayCommand(Action<T> execute, Predicate<T>? canExecute = null)
         {
-            this.executar = executar;
-            this.podeExecutar = podeExecutar;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter) => podeExecutar == null || podeExecutar(parameter);
+        public bool CanExecute(object? parameter) =>
+            _canExecute == null || (parameter is T t && _canExecute(t));
 
-        public void Execute(object parameter) => executar(parameter);
-
-        public event EventHandler CanExecuteChanged
+        public void Execute(object? parameter)
         {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
+            if (parameter is T t)
+                _execute(t);
+        }
+
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value!;
+            remove => CommandManager.RequerySuggested -= value!;
+        }
+    }
+
+    // RelayCommand não genérico (sem parâmetro)
+    public class RelayCommand : ICommand
+    {
+        private readonly Action<object?> _execute;
+        private readonly Predicate<object?>? _canExecute;
+
+        public RelayCommand(Action<object?> execute, Predicate<object?>? canExecute = null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute(object? parameter) =>
+            _canExecute == null || _canExecute(parameter);
+
+        public void Execute(object? parameter) =>
+            _execute(parameter);
+
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value!;
+            remove => CommandManager.RequerySuggested -= value!;
         }
     }
 }

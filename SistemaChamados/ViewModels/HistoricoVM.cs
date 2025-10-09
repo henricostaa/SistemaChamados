@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Input;
 using SistemaChamados.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 namespace SistemaChamados.ViewModels
 {
@@ -49,13 +50,49 @@ namespace SistemaChamados.ViewModels
         }
 
         public ICommand AplicarFiltrosCommand { get; }
+        public ICommand AtenderChamadoCommand { get; }
+        public ICommand ConcluirChamadoCommand { get; }
+        public ICommand MostrarDetalhesCommand { get; }
 
         public HistoricoVM()
         {
+            MostrarDetalhesCommand = new RelayCommand(ExecutarMostrarDetalhes);
+            AtenderChamadoCommand = new RelayCommand(ExecutarAtenderChamado);
+            ConcluirChamadoCommand = new RelayCommand(ExecutarConcluirChamado);
             AplicarFiltrosCommand = new RelayCommand(_ => AplicarFiltros());
             CarregarChamados();
-           
         }
+
+        private void ExecutarMostrarDetalhes(object chamadoObj)
+        {
+            if (chamadoObj is Chamado chamado)
+            {
+                MessageBox.Show($"Chamado #{chamado.ChamadoId}\n\nTítulo: {chamado.Titulo}\nDescrição: {chamado.Descricao}\nStatus: {chamado.Status}\nPrioridade: {chamado.Prioridade}\nSolicitante: {chamado.Solicitante?.Username}", "Detalhes do Chamado");
+            }
+        }
+
+        private void ExecutarAtenderChamado(object chamadoObj)
+        {
+            if (chamadoObj is Chamado chamado)
+            {
+                chamado.Status = "Em Andamento";
+                // Salvar no banco se quiser
+                OnPropertyChanged(nameof(ChamadosFiltrados));
+            }
+        }
+
+        private void ExecutarConcluirChamado(object chamadoObj)
+        {
+            if (chamadoObj is Chamado chamado)
+            {
+                chamado.Status = "Concluído";
+                // Salvar no banco se quiser
+                OnPropertyChanged(nameof(ChamadosFiltrados));
+            }
+        }
+
+       
+
         private void CarregarChamados()
         {
             using var db = new AppDbContext();
@@ -69,7 +106,6 @@ namespace SistemaChamados.ViewModels
             ChamadosFiltrados = new ObservableCollection<Chamado>(_todosChamados);
             OnPropertyChanged(nameof(ChamadosFiltrados));
         }
-
 
         private void AplicarFiltros()
         {
@@ -97,6 +133,8 @@ namespace SistemaChamados.ViewModels
             ChamadosFiltrados = new ObservableCollection<Chamado>(filtrados);
             OnPropertyChanged(nameof(ChamadosFiltrados));
         }
+
+       
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string nome) =>
