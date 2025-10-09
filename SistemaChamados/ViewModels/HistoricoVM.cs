@@ -1,63 +1,105 @@
-﻿using SistemaChamados.Data;
-using SistemaChamados.Models;
+﻿using SistemaChamados.Models;
+using SistemaChamados.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
+using SistemaChamados.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Windows.Data;
 
 namespace SistemaChamados.ViewModels
 {
     public class HistoricoVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Chamado> Chamados { get; set; } = new();
+        private ObservableCollection<Chamado> _todosChamados = new();
+        public ObservableCollection<Chamado> ChamadosFiltrados { get; set; } = new();
 
-        public ICollectionView ChamadosFiltrados { get; set; }
-
-        public string FiltroStatus { get; set; }
-        public string FiltroPrioridade { get; set; }
-
-        public HistoricoVM()
+        private string _filtroStatus = "Todos";
+        public string FiltroStatus
         {
-            CarregarChamados();
-            ChamadosFiltrados = CollectionViewSource.GetDefaultView(Chamados);
-            ChamadosFiltrados.Filter = FiltrarChamados;
-        }
-
-        private bool FiltrarChamados(object obj)
-        {
-            if (obj is not Chamado chamado) return false;
-
-            bool statusOk = string.IsNullOrEmpty(FiltroStatus) || chamado.Status == FiltroStatus;
-            bool prioridadeOk = string.IsNullOrEmpty(FiltroPrioridade) || chamado.Prioridade == FiltroPrioridade;
-
-            return statusOk && prioridadeOk;
-        }
-
-        public void AtualizarFiltro()
-        {
-            ChamadosFiltrados.Refresh();
-        }
-
-        private void CarregarChamados()
-        {
-            using (var context = new AppDbContext()) // substitua pelo seu DbContext real
+            get => _filtroStatus;
+            set
             {
-                var lista = context.Chamados
-                    .Include(c => c.Solicitante)
-                    .Include(c => c.AtribuidoA)
-                    .ToList();
-
-                Chamados.Clear();
-                foreach (var chamado in lista)
-                    Chamados.Add(chamado);
+                _filtroStatus = value;
+                OnPropertyChanged(nameof(FiltroStatus));
             }
         }
 
+        private string _filtroPrioridade = "Todas";
+        public string FiltroPrioridade
+        {
+            get => _filtroPrioridade;
+            set
+            {
+                _filtroPrioridade = value;
+                OnPropertyChanged(nameof(FiltroPrioridade));
+            }
+        }
+
+        private string _filtroPeriodo = "Todo Período";
+        public string FiltroPeriodo
+        {
+            get => _filtroPeriodo;
+            set
+            {
+                _filtroPeriodo = value;
+                OnPropertyChanged(nameof(FiltroPeriodo));
+            }
+        }
+
+        public ICommand AplicarFiltrosCommand { get; }
+
+        public HistoricoVM()
+        {
+            AplicarFiltrosCommand = new RelayCommand(_ => AplicarFiltros());
+            CarregarChamados();
+           
+        }
+        private void CarregarChamados()
+        {
+            using var db = new AppDbContext();
+            var lista = db.Chamados
+                .Include(c => c.Solicitante)
+                .Include(c => c.AtribuidoA)
+                .OrderByDescending(c => c.DataAbertura)
+                .ToList();
+
+            _todosChamados = new ObservableCollection<Chamado>(lista);
+            ChamadosFiltrados = new ObservableCollection<Chamado>(_todosChamados);
+            OnPropertyChanged(nameof(ChamadosFiltrados));
+        }
+
+
+        private void AplicarFiltros()
+        {
+            var filtrados = _todosChamados.Where(c =>
+            {
+                bool statusOk = FiltroStatus == "Todos" || string.Equals(c.Status?.Trim(), FiltroStatus.Trim(), StringComparison.OrdinalIgnoreCase);
+                bool prioridadeOk = FiltroPrioridade == "Todas" || string.Equals(c.Prioridade?.Trim(), FiltroPrioridade.Trim(), StringComparison.OrdinalIgnoreCase);
+
+                bool periodoOk = true;
+                if (FiltroPeriodo != "Todo Período")
+                {
+                    DateTime limite = FiltroPeriodo switch
+                    {
+                        "Últimos 7 Dias" => DateTime.Now.AddDays(-7),
+                        "Últimos 30 Dias" => DateTime.Now.AddDays(-30),
+                        _ => DateTime.MinValue
+                    };
+
+                    periodoOk = c.DataAbertura >= limite;
+                }
+
+                return statusOk && prioridadeOk && periodoOk;
+            }).ToList();
+
+            ChamadosFiltrados = new ObservableCollection<Chamado>(filtrados);
+            OnPropertyChanged(nameof(ChamadosFiltrados));
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string nome) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nome));
     }
 }

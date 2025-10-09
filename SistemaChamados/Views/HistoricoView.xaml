@@ -14,11 +14,8 @@
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Cabeçalho -->
             <RowDefinition Height="Auto"/>
-            <!-- Filtros -->
             <RowDefinition Height="*"/>
-            <!-- Lista -->
         </Grid.RowDefinitions>
 
         <!-- Cabeçalho -->
@@ -33,7 +30,8 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
             <GroupBox Header="Status" Margin="0,0,20,0">
                 <ComboBox Width="150"
-                          SelectedItem="{Binding FiltroStatus, Mode=TwoWay}">
+                          SelectedValue="{Binding FiltroStatus, Mode=TwoWay}"
+                          SelectedValuePath="Content">
                     <ComboBoxItem Content="Todos" />
                     <ComboBoxItem Content="Aberto" />
                     <ComboBoxItem Content="Em Andamento" />
@@ -44,7 +42,8 @@
 
             <GroupBox Header="Prioridade" Margin="0,0,20,0">
                 <ComboBox Width="150"
-                          SelectedItem="{Binding FiltroPrioridade, Mode=TwoWay}">
+                          SelectedValue="{Binding FiltroPrioridade, Mode=TwoWay}"
+                          SelectedValuePath="Content">
                     <ComboBoxItem Content="Todas" />
                     <ComboBoxItem Content="Urgente" />
                     <ComboBoxItem Content="Alta" />
@@ -55,7 +54,8 @@
 
             <GroupBox Header="Período" Margin="0,0,20,0">
                 <ComboBox Width="150"
-                          SelectedItem="{Binding FiltroPeriodo, Mode=TwoWay}">
+                          SelectedValue="{Binding FiltroPeriodo, Mode=TwoWay}"
+                          SelectedValuePath="Content">
                     <ComboBoxItem Content="Todo Período" />
                     <ComboBoxItem Content="Últimos 7 Dias" />
                     <ComboBoxItem Content="Últimos 30 Dias" />
@@ -85,8 +85,8 @@
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ChamadoId}" Width="50" />
                     <GridViewColumn Header="Título" DisplayMemberBinding="{Binding Titulo}" Width="200" />
-                    <GridViewColumn Header="Solicitante" DisplayMemberBinding="{Binding Solicitante.Nome}" Width="150" />
-                    <GridViewColumn Header="Analista" DisplayMemberBinding="{Binding AtribuidoA.Nome}" Width="150" />
+                    <GridViewColumn Header="Solicitante" DisplayMemberBinding="{Binding Solicitante.Username}" Width="150" />
+                    <GridViewColumn Header="Analista" DisplayMemberBinding="{Binding AtribuidoA.Username}" Width="150" />
                     <GridViewColumn Header="Categoria" DisplayMemberBinding="{Binding Categoria}" Width="100" />
                     <GridViewColumn Header="Prioridade" DisplayMemberBinding="{Binding Prioridade}" Width="100" />
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100" />

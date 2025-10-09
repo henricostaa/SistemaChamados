@@ -26,12 +26,6 @@ namespace SistemaChamados.Views
         {
             InitializeComponent();
         }
-        private void Filtro_Changed(object sender, SelectionChangedEventArgs e)
-        {
-            if (DataContext is HistoricoVM vm)
-            {
-                vm.AtualizarFiltro();
-            }
-        }
+       
     }
 }
