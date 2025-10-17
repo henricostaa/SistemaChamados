@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\chatbot.png" />
+    <None Remove="Resources\faq.png" />
     <None Remove="Resources\home.png" />
     <None Remove="Resources\minimize.png" />
     <None Remove="Resources\settings.png" />
@@ -27,6 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\chatbot.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\faq.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\home.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

@@ -1,0 +1,142 @@
+﻿<UserControl x:Class="SistemaChamados.Views.FAQ"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:SistemaChamados.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600"  d:DesignWidth="772"
+             Style="{StaticResource Page_Style}">
+    
+    <UserControl.Resources>
+        <!-- Cabeçalho roxo -->
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="6"/>
+        </Style>
+
+        <!-- Estilo do item (linha) -->
+        <Style x:Key="LinhaListaStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="0,4,0,0"/> <!-- espaço entre linhas -->
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="ClipToBounds" Value="True"/>
+        </Style>
+
+        <!-- Remove highlight padrão da ListView para manter aparência "tabela" -->
+        <Style TargetType="ListViewItem" x:Key="ListViewItemNoSelection">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <vm:FAQViewModel />
+    </UserControl.DataContext>
+
+    <Grid Margin="10">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+            <TextBlock Text="Central de Ajuda - Perguntas Frequentes"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,10"/>
+
+            <!-- filtros (mantidos) -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                <StackPanel Orientation="Vertical" Margin="0,0,20,0">
+                    <TextBlock Text="🔍 Buscar por palavra-chave"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               FontSize="13"
+                               Margin="0,0,0,4"/>
+                    <Border Background="#D8BFD8" CornerRadius="6" BorderBrush="White" BorderThickness="2">
+                        <TextBox Width="280" Height="30" FontSize="13" Padding="6"
+                                 Background="Transparent" BorderThickness="0" Foreground="Black"
+                                 Text="{Binding TextoBusca, UpdateSourceTrigger=PropertyChanged}" />
+                    </Border>
+                </StackPanel>
+
+        
+            </StackPanel>
+
+            <!-- Cabecalho da "tabela" (linha fixa) -->
+            <Border Background="#6A0DAD" BorderBrush="White" BorderThickness="1" CornerRadius="4" Padding="6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/> <!-- deixa a resposta ocupar espaço restante -->
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Ordem" Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock Grid.Column="1" Text="Pergunta" Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock Grid.Column="2" Text="Resposta" Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock Grid.Column="3" Text="Categoria" Style="{StaticResource HeaderTextStyle}"/>
+                </Grid>
+            </Border>
+
+            <!-- Lista principal -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MaxHeight="220">
+                <ListView ItemsSource="{Binding PerguntasFiltradas}"
+                          ItemContainerStyle="{StaticResource ListViewItemNoSelection}"
+                          Background="Transparent"
+                          Foreground="White"
+                          BorderThickness="0"
+                          SnapsToDevicePixels="True">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Cada "linha" é um Border (com estilo) contendo um Grid de 4 colunas -->
+                            <Border Style="{StaticResource LinhaListaStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Ordem -->
+                                    <TextBlock Grid.Column="0" Text="{Binding Ordem}" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                    <!-- Pergunta (wrap) -->
+                                    <TextBlock Grid.Column="1" Text="{Binding Pergunta}" TextWrapping="Wrap"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4"/>
+
+                                    <!-- Resposta (wrap) -->
+                                    <TextBlock Grid.Column="2" Text="{Binding Resposta}" TextWrapping="Wrap"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center" Padding="4"/>
+
+                                    <!-- Categoria -->
+                                    <TextBlock Grid.Column="3" Text="{Binding Categoria}" 
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</UserControl>

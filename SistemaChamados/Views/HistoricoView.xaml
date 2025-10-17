@@ -6,6 +6,58 @@
              xmlns:vm="clr-namespace:SistemaChamados.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="772">
+    
+    <UserControl.Resources>
+        <!-- Gradiente de fundo -->
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#1E0140" Offset="0"/>
+            <GradientStop Color="#2E004F" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Estilo para campos de entrada -->
+        <Style x:Key="RoundedInput" TargetType="Control">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Background" Value="#3F0A6B"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#6A0DAD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+           
+        </Style>
+
+        <!-- Estilo para botão -->
+        <Style x:Key="PurpleButton" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#A020F0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#B84DFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
 
     <UserControl.DataContext>
         <vm:HistoricoVM />
@@ -27,9 +79,9 @@
                    Margin="0,0,0,20" />
 
         <!-- Filtros -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
-            <GroupBox Header="Status" Margin="0,0,20,0">
-                <ComboBox Width="150"
+        <WrapPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
+            <StackPanel>
+                <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
                           SelectedValue="{Binding FiltroStatus, Mode=TwoWay}"
                           SelectedValuePath="Content">
                     <ComboBoxItem Content="Todos" />
@@ -38,10 +90,10 @@
                     <ComboBoxItem Content="Concluído" />
                     <ComboBoxItem Content="Rejeitado" />
                 </ComboBox>
-            </GroupBox>
+            </StackPanel>
 
-            <GroupBox Header="Prioridade" Margin="0,0,20,0">
-                <ComboBox Width="150"
+            <StackPanel>
+                <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
                           SelectedValue="{Binding FiltroPrioridade, Mode=TwoWay}"
                           SelectedValuePath="Content">
                     <ComboBoxItem Content="Todas" />
@@ -50,28 +102,28 @@
                     <ComboBoxItem Content="Média" />
                     <ComboBoxItem Content="Baixa" />
                 </ComboBox>
-            </GroupBox>
+            </StackPanel>
 
-            <GroupBox Header="Período" Margin="0,0,20,0">
-                <ComboBox Width="150"
+            <StackPanel>
+                <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
                           SelectedValue="{Binding FiltroPeriodo, Mode=TwoWay}"
                           SelectedValuePath="Content">
                     <ComboBoxItem Content="Todo Período" />
                     <ComboBoxItem Content="Últimos 7 Dias" />
                     <ComboBoxItem Content="Últimos 30 Dias" />
                 </ComboBox>
-            </GroupBox>
+            </StackPanel>
 
             <!-- Botão Aplicar Filtros -->
+            <StackPanel>
             <Button Content="Aplicar Filtros"
                     Command="{Binding AplicarFiltrosCommand}"
+                    Style="{StaticResource PurpleButton}"
+                    Background="#6A0DAD"
                     Width="150"
-                    Height="35"
-                    Margin="0,0,20,0"
-                    Background="#4B0082"
-                    Foreground="White"
-                    FontWeight="Bold" />
-        </StackPanel>
+                    Height="35"/>
+            </StackPanel>
+        </WrapPanel>
 
         <!-- Lista de Chamados -->
 
