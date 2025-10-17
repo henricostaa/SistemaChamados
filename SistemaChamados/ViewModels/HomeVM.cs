@@ -20,7 +20,7 @@ namespace SistemaChamados.ViewModels
 
         public int TotalAbertos => _todosChamados.Count(c => c.Status == "Aberto");
         public int TotalFechados => _todosChamados.Count(c => c.Status == "Fechado");
-        public int TotalPendentes => _todosChamados.Count(c => c.Status == "Pendente");
+        public int TotalAndamento => _todosChamados.Count(c => c.Status == "Em Andamento");
         public int TotalChamados => _todosChamados.Count;
 
         public ObservableCollection<string> UltimosChamados { get; set; } = new ObservableCollection<string>();
@@ -28,7 +28,7 @@ namespace SistemaChamados.ViewModels
         public ICommand CarregarVisaoGeralCommand { get; }
         public ICommand FiltrarAbertosCommand { get; }
         public ICommand FiltrarFechadosCommand { get; }
-        public ICommand FiltrarPendentesCommand { get; }
+        public ICommand FiltrarAndamentoCommand { get; }
         public ICommand FiltrarTodosCommand { get; }
 
         public HomeVM()
@@ -38,7 +38,7 @@ namespace SistemaChamados.ViewModels
             CarregarVisaoGeralCommand = new RelayCommand(CarregarVisaoGeral);
             FiltrarAbertosCommand = new RelayCommand(_ => FiltrarPorStatus("Aberto"));
             FiltrarFechadosCommand = new RelayCommand(_ => FiltrarPorStatus("Fechado"));
-            FiltrarPendentesCommand = new RelayCommand(_ => FiltrarPorStatus("Pendente"));
+            FiltrarAndamentoCommand = new RelayCommand(_ => FiltrarPorStatus("Em Andamento"));
             FiltrarTodosCommand = new RelayCommand(_ => FiltrarTodos());
         }
 
@@ -61,7 +61,7 @@ namespace SistemaChamados.ViewModels
             OnPropertyChanged(nameof(UltimosChamados));
             OnPropertyChanged(nameof(TotalAbertos));
             OnPropertyChanged(nameof(TotalFechados));
-            OnPropertyChanged(nameof(TotalPendentes));
+            OnPropertyChanged(nameof(TotalAndamento));
             OnPropertyChanged(nameof(TotalChamados));
         }
 
@@ -95,7 +95,7 @@ namespace SistemaChamados.ViewModels
 
             OnPropertyChanged(nameof(TotalAbertos));
             OnPropertyChanged(nameof(TotalFechados));
-            OnPropertyChanged(nameof(TotalPendentes));
+            OnPropertyChanged(nameof(TotalAndamento));
             OnPropertyChanged(nameof(TotalChamados));
         }
 

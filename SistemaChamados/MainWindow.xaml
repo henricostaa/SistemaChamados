@@ -66,26 +66,6 @@
                          Style="{StaticResource Text_Style}" />
                         </Grid>
                     </Menu:Btn>
-
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding UsuarioCommand}" >
-                        <Grid>
-                            <Image Source="/Resources/user.png"
-                                   Style="{StaticResource Image_Style}" />
-                            <TextBlock Text="Perfil"
-                                       Style="{StaticResource Text_Style}" />
-                        </Grid>
-                    </Menu:Btn>
-                    
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
-          Command="{Binding FAQCommand}" >
-                        <Grid>
-                            <Image Source="/Resources/faq.png"
-               Style="{StaticResource Image_Style}" />
-                            <TextBlock Text="FAQ"
-                   Style="{StaticResource Text_Style}" />
-                        </Grid>
-                    </Menu:Btn>
                     
                     <Menu:Btn Style="{StaticResource BtnStyle}"
       Command="{Binding ChatBotCommand}" >
@@ -96,9 +76,26 @@
       Style="{StaticResource Text_Style}" />
                         </Grid>
                     </Menu:Btn>
+                    
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+Command="{Binding FAQCommand}" >
+                        <Grid>
+                            <Image Source="/Resources/faq.png"
+     Style="{StaticResource Image_Style}" />
+                            <TextBlock Text="FAQ"
+         Style="{StaticResource Text_Style}" />
+                        </Grid>
+                    </Menu:Btn>
 
-
-
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+           Command="{Binding UsuarioCommand}" >
+                        <Grid>
+                            <Image Source="/Resources/user.png"
+                Style="{StaticResource Image_Style}" />
+                            <TextBlock Text="Perfil"
+                    Style="{StaticResource Text_Style}" />
+                        </Grid>
+                    </Menu:Btn>
 
                 </StackPanel>
             </Grid>

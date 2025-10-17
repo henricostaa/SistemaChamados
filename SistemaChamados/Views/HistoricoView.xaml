@@ -79,51 +79,96 @@
                    Margin="0,0,0,20" />
 
         <!-- Filtros -->
-        <WrapPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
-            <StackPanel>
-                <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
-                          SelectedValue="{Binding FiltroStatus, Mode=TwoWay}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem Content="Todos" />
-                    <ComboBoxItem Content="Aberto" />
-                    <ComboBoxItem Content="Em Andamento" />
-                    <ComboBoxItem Content="Concluído" />
-                    <ComboBoxItem Content="Rejeitado" />
-                </ComboBox>
-            </StackPanel>
+        <Border
+            Grid.Row="1"
+                CornerRadius="10"
+                Background="#6A0DAD"
+                Padding="10"
+                
+                Width="680"
+                BorderBrush="White"
+                BorderThickness="1">
 
-            <StackPanel>
-                <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
-                          SelectedValue="{Binding FiltroPrioridade, Mode=TwoWay}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem Content="Todas" />
-                    <ComboBoxItem Content="Urgente" />
-                    <ComboBoxItem Content="Alta" />
-                    <ComboBoxItem Content="Média" />
-                    <ComboBoxItem Content="Baixa" />
-                </ComboBox>
-            </StackPanel>
+            <DockPanel  HorizontalAlignment="Left"
+            Background="#6A0DAD"
+                         >
 
-            <StackPanel>
-                <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
-                          SelectedValue="{Binding FiltroPeriodo, Mode=TwoWay}"
-                          SelectedValuePath="Content">
-                    <ComboBoxItem Content="Todo Período" />
-                    <ComboBoxItem Content="Últimos 7 Dias" />
-                    <ComboBoxItem Content="Últimos 30 Dias" />
-                </ComboBox>
-            </StackPanel>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <!-- Botão Aplicar Filtros -->
-            <StackPanel>
-            <Button Content="Aplicar Filtros"
-                    Command="{Binding AplicarFiltrosCommand}"
-                    Style="{StaticResource PurpleButton}"
-                    Background="#6A0DAD"
-                    Width="150"
-                    Height="35"/>
-            </StackPanel>
-        </WrapPanel>
+                    <TextBlock Text="Status:"
+                               FontSize="12"
+                               
+                               Foreground="White"
+                               
+                               />
+                    
+
+                    <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
+                              Margin="0,0,10,0"
+                              VerticalAlignment="Center"
+                              
+                   
+                   SelectedValue="{Binding FiltroStatus, Mode=TwoWay}"
+                   SelectedValuePath="Content">
+                        <ComboBoxItem Content="Todos" />
+                        <ComboBoxItem Content="Aberto" />
+                        <ComboBoxItem Content="Em Andamento" />
+                        <ComboBoxItem Content="Fechado" />
+                        <ComboBoxItem Content="Rejeitado" />
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Prioridade:"
+                        FontSize="12"
+            
+                        Foreground="White"
+            
+                                             />
+                    <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
+                              Margin="0,0,10,0"
+                   SelectedValue="{Binding FiltroPrioridade, Mode=TwoWay}"
+                   SelectedValuePath="Content">
+                        <ComboBoxItem Content="Todas" />
+                        <ComboBoxItem Content="Urgente" />
+                        <ComboBoxItem Content="Alta" />
+                        <ComboBoxItem Content="Média" />
+                        <ComboBoxItem Content="Baixa" />
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Período:"
+                               FontSize="12"
+            
+                               Foreground="White"
+            
+                                                        />
+                    <ComboBox Style="{StaticResource RoundedComboBox}" Width="150"
+                   SelectedValue="{Binding FiltroPeriodo, Mode=TwoWay}"
+                   SelectedValuePath="Content">
+                        <ComboBoxItem Content="Todo Período" />
+                        <ComboBoxItem Content="Últimos 7 Dias" />
+                        <ComboBoxItem Content="Últimos 30 Dias" />
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Botão Aplicar Filtros -->
+                <StackPanel Width="200">
+                    <Button Content="Aplicar Filtros"
+             Command="{Binding AplicarFiltrosCommand}"
+             Style="{StaticResource PurpleButton}"
+             Background="MediumPurple"
+             Width="150"
+             Height="35"
+                            Margin="0,15,0,0"
+                            />
+                </StackPanel>
+            </DockPanel>
+
+        </Border>
+        
+       
 
         <!-- Lista de Chamados -->
 
@@ -137,7 +182,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border CornerRadius="8" Margin="10" Padding="10" Background="White" Width="160">
+                        <Border CornerRadius="8" Margin="10" Padding="10" Background="#6A0DAD" Width="160">
                              <Border.Effect>
                                 <DropShadowEffect Color="Black"
                                                   BlurRadius="8"
@@ -165,7 +210,7 @@
                             </Border.Style>
 
                             <StackPanel>
-                                <TextBlock Text="{Binding Titulo}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Foreground="Purple"/>
+                                <TextBlock Text="{Binding Titulo}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Foreground="White"/>
                                 <Border CornerRadius="4" Padding="4,2" Margin="0,5,0,0" HorizontalAlignment="Left">
                                     <Border.Style>
                                         <Style TargetType="Border">
@@ -233,56 +278,51 @@
                                     </Border.Style>
 
                                     <TextBlock Text="{Binding Status}"
-               FontSize="12"
-               FontWeight="SemiBold"
-               Foreground="Black"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
+                                         FontSize="12"
+                                         FontWeight="SemiBold"
+                                         Foreground="Black"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
                                 </Border>
 
 
-                                <TextBlock Text="{Binding Solicitante.Username}" FontSize="12" />
+                                <TextBlock Foreground="White" Text="{Binding Solicitante.Username}" FontSize="12"
+                                           Margin="5"/>
 
                                 <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                                     <!-- Atender -->
                                     <Button Content="Atender"
                                     Command="{Binding DataContext.AtenderChamadoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                    CommandParameter="{Binding}" Margin="0,0,0,5">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Status}" Value="Aberto">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
+                                    CommandParameter="{Binding}" Margin="0,0,0,5"
+                                            Style="{StaticResource BotaoAtenderStyle}"
+                                            Height="25"
+                                            FontSize="12"
+                                            Width="auto">
+                                        
+                                       
+
+
                                     </Button>
 
                                     <!-- Concluir -->
                                     <Button Content="Concluir"
                                     Command="{Binding DataContext.ConcluirChamadoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                    CommandParameter="{Binding}" Margin="0,0,0,5">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Status}" Value="Aberto">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Status}" Value="Em Andamento">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
+                                    CommandParameter="{Binding}" Margin="0,0,0,5"
+                                             Style="{StaticResource BotaoConcluirStyle}"
+                                             Height="25"
+                                             FontSize="12"
+                                             Width="auto">
+                                        
                                     </Button>
 
                                     <!-- Mostrar Detalhes -->
                                     <Button Content="Mostrar Detalhes"
                                     Command="{Binding DataContext.MostrarDetalhesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                    CommandParameter="{Binding}" />
+                                    CommandParameter="{Binding}"
+                                             Style="{StaticResource ModernLoginButton}"
+                                             Height="25"
+                                             FontSize="12"
+                                             Width="auto"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

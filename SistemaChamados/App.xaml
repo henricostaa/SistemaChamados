@@ -264,8 +264,35 @@
                 </Setter>
             </Style>
             
-            
-            
+            <Style x:Key="BotaoAtenderStyle" BasedOn="{StaticResource ModernLoginButton}" TargetType="Button">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="Aberto">
+                        <Setter Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="BotaoConcluirStyle" BasedOn="{StaticResource ModernLoginButton}" TargetType="Button">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="Em Andamento">
+                        <Setter Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="BotaoDetalhesStyle" BasedOn="{StaticResource ModernLoginButton}" TargetType="Button">
+                <Setter Property="Visibility" Value="Collapsed" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="Em Andamento">
+                        <Setter Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+
+
 
 
         </ResourceDictionary> 

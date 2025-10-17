@@ -8,6 +8,7 @@ using System.Windows.Input;
 using SistemaChamados.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Windows;
+using System.Windows.Data;
 
 namespace SistemaChamados.ViewModels
 {
@@ -15,6 +16,7 @@ namespace SistemaChamados.ViewModels
     {
         private ObservableCollection<Chamado> _todosChamados = new();
         public ObservableCollection<Chamado> ChamadosFiltrados { get; set; } = new();
+
 
         private string _filtroStatus = "Todos";
         public string FiltroStatus
@@ -75,19 +77,38 @@ namespace SistemaChamados.ViewModels
         {
             if (chamadoObj is Chamado chamado)
             {
-                chamado.Status = "Em Andamento";
-                // Salvar no banco se quiser
-                OnPropertyChanged(nameof(ChamadosFiltrados));
+                using var db = new AppDbContext();
+                var chamadoDb = db.Chamados.Find(chamado.ChamadoId);
+                if (chamadoDb != null)
+                {
+                    chamadoDb.Status = "Em Andamento";
+                    chamadoDb.DataAtribuicao = DateTime.Now;
+                    db.SaveChanges();
+                }
+
+                chamado.Status = "Em Andamento"; // Atualiza também na UI
+                CollectionViewSource.GetDefaultView(ChamadosFiltrados).Refresh();
             }
+
         }
+        
 
         private void ExecutarConcluirChamado(object chamadoObj)
         {
             if (chamadoObj is Chamado chamado)
             {
-                chamado.Status = "Concluído";
-                // Salvar no banco se quiser
-                OnPropertyChanged(nameof(ChamadosFiltrados));
+                using var db = new AppDbContext();
+                var chamadoDb = db.Chamados.Find(chamado.ChamadoId);
+                if (chamadoDb != null)
+                {
+                    chamadoDb.Status = "Fechado";
+                    chamadoDb.DataFechamento = DateTime.Now;
+                    db.SaveChanges();
+                }
+
+                chamado.Status = "Fechado"; // Atualiza também na UI
+                CollectionViewSource.GetDefaultView(ChamadosFiltrados).Refresh();
+
             }
         }
 
@@ -104,7 +125,7 @@ namespace SistemaChamados.ViewModels
 
             _todosChamados = new ObservableCollection<Chamado>(lista);
             ChamadosFiltrados = new ObservableCollection<Chamado>(_todosChamados);
-            OnPropertyChanged(nameof(ChamadosFiltrados));
+            CollectionViewSource.GetDefaultView(ChamadosFiltrados).Refresh();
         }
 
         private void AplicarFiltros()

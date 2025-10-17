@@ -23,18 +23,17 @@ namespace SistemaChamados.ViewModels
         public ICommand ConfiguracoesCommand { get; set; }
         public ICommand UsuarioCommand { get; set; }
         public ICommand HistoricoCommand { get; set; }
+        public ICommand FAQCommand { get; set; }
         public ICommand ChatBotCommand { get; set; }
 
         private void FAQ(object obj) => CurrentView = new FAQ();
-
         private void Home(object obj) => CurrentView = new HomeView();
         private void Tickets(object obj) => CurrentView = new TicketsView();
         private void Configuracoes(object obj) => CurrentView = new ConfiguracoesView();
         private void Usuario(object obj) => CurrentView = new UsuarioView();
         private void Historico(object obj) => CurrentView = new HistoricoView();
-        public ICommand FAQCommand { get; set; }
+        private void ChatBot(object obj) => CurrentView = new ChatBotView();
 
-        public void ChatBot(object obj) => CurrentView = new ChatBotView();
         public NavigationVM()
         {
             HomeCommand = new RelayCommand(Home);
@@ -43,7 +42,9 @@ namespace SistemaChamados.ViewModels
             UsuarioCommand = new RelayCommand(Usuario);
             HistoricoCommand = new RelayCommand(Historico);
             FAQCommand = new RelayCommand(FAQ);
+            ChatBotCommand = new RelayCommand(ChatBot);
             CurrentView = new HomeView();
+            
         }
     }
 }

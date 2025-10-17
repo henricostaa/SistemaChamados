@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace SistemaChamados.Models
 {
@@ -17,7 +18,26 @@ namespace SistemaChamados.Models
 
         public string? Prioridade { get; set; }
 
-        public string? Status { get; set; } = "Aberto";
+        private string? _status;
+        public string? Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string nome) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nome));
+
+
+
 
         public DateTime DataAbertura { get; set; } = DateTime.Now;
 

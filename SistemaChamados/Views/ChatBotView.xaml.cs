@@ -24,5 +24,7 @@ namespace SistemaChamados.Views
         {
             InitializeComponent();
         }
+
     }
+
 }
