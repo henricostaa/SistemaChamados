@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SistemaChamados.Helpers;
+using SistemaChamados.Models;
 using SistemaChamados.Views;
 
 namespace SistemaChamados.ViewModels
@@ -25,6 +27,11 @@ namespace SistemaChamados.ViewModels
         public ICommand HistoricoCommand { get; set; }
         public ICommand FAQCommand { get; set; }
         public ICommand ChatBotCommand { get; set; }
+        public ICommand MostrarDetalhesCommand { get; }
+       
+
+
+
 
         private void FAQ(object obj) => CurrentView = new FAQ();
         private void Home(object obj) => CurrentView = new HomeView();
@@ -33,6 +40,9 @@ namespace SistemaChamados.ViewModels
         private void Usuario(object obj) => CurrentView = new UsuarioView();
         private void Historico(object obj) => CurrentView = new HistoricoView();
         private void ChatBot(object obj) => CurrentView = new ChatBotView();
+        
+
+
 
         public NavigationVM()
         {
@@ -43,6 +53,7 @@ namespace SistemaChamados.ViewModels
             HistoricoCommand = new RelayCommand(Historico);
             FAQCommand = new RelayCommand(FAQ);
             ChatBotCommand = new RelayCommand(ChatBot);
+           
             CurrentView = new HomeView();
             
         }

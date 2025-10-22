@@ -12,6 +12,7 @@
     <None Remove="Resources\chatbot.png" />
     <None Remove="Resources\faq.png" />
     <None Remove="Resources\home.png" />
+    <None Remove="Resources\maximizar.png" />
     <None Remove="Resources\minimize.png" />
     <None Remove="Resources\settings.png" />
     <None Remove="Resources\shutdown_def.png" />
@@ -36,6 +37,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\home.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\maximizar.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\minimize.png">

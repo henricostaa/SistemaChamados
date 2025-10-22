@@ -114,6 +114,10 @@
             ImageSource="/Resources/minimize.png"
             Stretch="None" />
 
+    <ImageBrush x:Key="max_app_def"
+                ImageSource="/Resources/maximizar.png"
+                Stretch="None"/>
+
     <Style x:Key="ExitApp"
            TargetType="{x:Type Button}">
 
@@ -203,7 +207,40 @@
         </Setter>
 
     </Style>
+    
+    <Style x:Key="MaxApp"
+   TargetType="{x:Type Button}">
 
+        <Setter Property="Height"
+        Value="40" />
+        <Setter Property="Width"
+        Value="40" />
+        <Setter Property="HorizontalAlignment"
+        Value="Right" />
+        <Setter Property="VerticalAlignment"
+        Value="Top" />
+        <Setter Property="Margin"
+        Value="0,10,10,0" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="border"
+                    BorderThickness="0"
+                    Background="{StaticResource max_app_def}">
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
 
 
 </ResourceDictionary>

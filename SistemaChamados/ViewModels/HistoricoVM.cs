@@ -9,6 +9,7 @@ using SistemaChamados.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Windows;
 using System.Windows.Data;
+using SistemaChamados.Views;
 
 namespace SistemaChamados.ViewModels
 {
@@ -65,14 +66,19 @@ namespace SistemaChamados.ViewModels
             CarregarChamados();
         }
 
+
         private void ExecutarMostrarDetalhes(object chamadoObj)
         {
             if (chamadoObj is Chamado chamado)
             {
-                MessageBox.Show($"Chamado #{chamado.ChamadoId}\n\nTítulo: {chamado.Titulo}\nDescrição: {chamado.Descricao}\nStatus: {chamado.Status}\nPrioridade: {chamado.Prioridade}\nSolicitante: {chamado.Solicitante?.Username}", "Detalhes do Chamado");
+                var popup = new MostrarDetalhesPopup
+                {
+                    DataContext = new MostrarDetalhesVM(chamado),
+                    Owner = Application.Current.MainWindow
+                };
+                popup.ShowDialog();
             }
         }
-
         private void ExecutarAtenderChamado(object chamadoObj)
         {
             if (chamadoObj is Chamado chamado)
