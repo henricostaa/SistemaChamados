@@ -16,7 +16,7 @@ namespace SistemaChamados.ViewModels
         private object _currentView;
         public object CurrentView
         {
-            get { return _currentView; }
+            get  => _currentView; 
             set { _currentView = value; OnPropertyChanged(); }
         }
 
@@ -27,7 +27,7 @@ namespace SistemaChamados.ViewModels
         public ICommand HistoricoCommand { get; set; }
         public ICommand FAQCommand { get; set; }
         public ICommand ChatBotCommand { get; set; }
-        public ICommand MostrarDetalhesCommand { get; }
+       
        
 
 

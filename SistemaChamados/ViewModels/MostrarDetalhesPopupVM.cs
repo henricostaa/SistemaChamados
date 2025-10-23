@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SistemaChamados.ViewModels
 {
-    public class MostrarDetalhesVM : ViewModelBase
+    public class MostrarDetalhesPopupVM : ViewModelBase
     {
         public Chamado ChamadoSelecionado { get; set; }
 
-        public MostrarDetalhesVM(Chamado chamado)
+        public MostrarDetalhesPopupVM(Chamado chamado)
         {
             ChamadoSelecionado = chamado;
         }

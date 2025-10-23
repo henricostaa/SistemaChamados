@@ -71,12 +71,24 @@ namespace SistemaChamados.ViewModels
         {
             if (chamadoObj is Chamado chamado)
             {
-                var popup = new MostrarDetalhesPopup
+                try
                 {
-                    DataContext = new MostrarDetalhesVM(chamado),
-                    Owner = Application.Current.MainWindow
-                };
-                popup.ShowDialog();
+                    var popup = new MostrarDetalhesPopup
+                    {
+                        DataContext = new MostrarDetalhesPopupVM(chamado)
+                    };
+
+                    if (Application.Current.MainWindow != popup)
+                    {
+                        popup.Owner = Application.Current.MainWindow;
+                    }
+
+                    popup.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao abrir detalhes: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         private void ExecutarAtenderChamado(object chamadoObj)

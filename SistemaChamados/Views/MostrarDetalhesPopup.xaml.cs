@@ -23,6 +23,17 @@ namespace SistemaChamados.Views
         {
             InitializeComponent();
         }
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                try
+                {
+                    DragMove();
+                }
+                catch { /* evita exceções se a janela estiver em estado inválido */ }
+            }
+        }
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
             Close();
